@@ -94,7 +94,6 @@ def analyse_labelled_image(labelled_image,original_image):
     measure_dataframe=pd.DataFrame.from_dict(measure_image)
     return measure_dataframe
 
-# This is to look at coincidence purely in terms of pixels
 
 
 for i in range(len(pathList)):
@@ -122,9 +121,9 @@ for i in range(len(pathList)):
  
     # Plot histograms
     
-    areas= im_measurements['area']
-    plt.hist(areas, bins = 20,range=[0,200], rwidth=0.9,color='#607c8e')
-    plt.xlabel('Area (pixels)')
+    areas= im_measurements['area']*((pixel_size/1000)**2)
+    plt.hist(areas, bins = 20,range=[0,1], rwidth=0.9,color='#607c8e')
+    plt.xlabel('Area (\u03bcm$^{2}$)')
     plt.ylabel('Number of Aggregates')
     plt.savefig(directory+'/'+'Areas.pdf')
     plt.show()
@@ -136,9 +135,9 @@ for i in range(len(pathList)):
     plt.savefig(directory+'/'+'Intensities.pdf')
     plt.show()
     
-    lengths= im_measurements['major_axis_length']
-    plt.hist(lengths, bins = 20,range=[0,100], rwidth=0.9,color='#607c8e')
-    plt.xlabel('Length (pixels)')
+    lengths= im_measurements['major_axis_length']*pixel_size/1000
+    plt.hist(lengths, bins = 20,range=[0,10], rwidth=0.9,color='#607c8e')
+    plt.xlabel('Length (\u03bcm)')
     plt.ylabel('Number of Aggregates')
     plt.savefig(directory+'/'+'lengths.pdf')
     plt.show()
